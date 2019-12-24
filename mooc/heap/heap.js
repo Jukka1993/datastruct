@@ -2,7 +2,7 @@
 function createHeapLow(nums){
     var newHeap = {
         size:0,
-        arr:[99999]
+        arr:[Infinity]
     };
     for(var i =0;i<nums.length;i++){
         insert(newHeap,nums[i]);

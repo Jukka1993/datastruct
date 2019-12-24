@@ -1,5 +1,6 @@
 var heap = require("./heap");
-var nums = [];
+var numss = require("../../1Mints");
+var nums = numss.arr;
 for(var i = 0;i<100;i++){
     var temp = Math.floor(Math.random() * 100000);
     if(nums.indexOf(temp) === -1){
@@ -13,11 +14,8 @@ for(var i =0 ;i<nums.length-1;i++){
         break;
     }
 }
-console.log("before is decrease",isDecrease);
-// console.log("before nums==============",nums);
 // const newHeap = heap.createHeapLow([6,0,7,8,4,9,13,24,5,33,26,17,98,45,72,36,58,43,19]);
 const newHeap = heap.createHeapLow(nums);
-// console.log(newHeap);
 var temp1 = [];
 while(newHeap.size > 0){
     temp1.push(heap.get(newHeap));
@@ -30,5 +28,8 @@ for(var i =0 ;i<temp1.length-1;i++){
         break;
     }
 }
+console.log(nums);
+console.log(temp1);
+console.log(temp1.length);
+console.log("before is decrease",isDecrease);
 console.log("end is decrease",isDecrease1);
-// console.log("over nums*****************",temp1);
