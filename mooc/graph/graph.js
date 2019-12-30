@@ -10,7 +10,11 @@ function MatrixGraph(vCount,eCount,eArr){
         for(var i =0;i<vCount;i++){
             const temp1 = [];
             for(var j =0;j<vCount;j++){
-                temp1.push(0);
+                if(i === j){
+                    temp1.push(0);
+                } else {
+                    temp1.push(Infinity);
+                }
             }
             this.eArr.push(temp1);
         }
@@ -21,9 +25,82 @@ function MatrixGraph(vCount,eCount,eArr){
     this.queue = [];
 }
 
-MatrixGraph.prototype.addE = function(v1,v2) {
-    this.eArr[v1][v2] = 1;
-    this.eArr[v2][v1] = 1;
+MatrixGraph.prototype.addE = function(v1,v2,weight) {
+    this.eArr[v1][v2] = weight?weight:1;
+    this.eArr[v2][v1] = weight?weight:1;
+    this.eCount+=2;
+}
+MatrixGraph.prototype.addDirectE = function(v1,v2,weight){
+    this.eArr[v1][v2] = weight?weight:1;
+    this.eCount++;
+}
+
+MatrixGraph.prototype.dijkstra = function(v1,v2){
+    const dists = [];
+    const path = [];
+    for(var i = 0;i<this.vCount;i++){
+        dists[i] = Infinity;
+    }
+    const collected = [];//已经确定了最短路径的顶点的集合
+    dists[v1] = 0;
+    while(true){
+        var minIndex = -1;
+        var min = Infinity;
+        dists.forEach((dist,index,dists)=>{
+            if(dist <= min && collected[index] === undefined){
+                min = dist;
+                minIndex = index;
+            }
+        });
+        if(minIndex === -1){
+            break;
+        }
+        collected[minIndex] = true;
+        for(var j = 0;j<this.vCount;j++){
+            if(collected[j]=== undefined && this.eArr[minIndex][j] !== Infinity){
+                if(dists[j] > dists[minIndex] + this.eArr[minIndex][j]){
+                    dists[j] = dists[minIndex] + this.eArr[minIndex][j];
+                    path[j] = minIndex;
+                }
+            }
+        }
+    }
+    var cur = v2;
+    var stack = [];
+    while(cur !== v1){
+        stack.push(cur);
+        cur = path[cur];
+    }
+    stack.push(v1);
+    var finalPath = [];
+    while(stack.length > 0){
+        finalPath.push(stack.pop());
+    }
+    return finalPath;
+}
+MatrixGraph.prototype.floyd = function(){
+    const D = [];
+    const P = [];
+    for(var i = 0;i<this.vCount;i++){
+        D.push([]);
+        P.push([]);
+        for(var j = 0;j<this.vCount;j++){
+            D[i].push(this.eArr[i][j]);
+            P[i][j] = -1;
+        }
+    }
+    for(var k=0;k<this.vCount;k++){
+        for(var i = 0;i<this.vCount;i++){
+            for(var j = 0;j<this.vCount;j++){
+                if(D[i][j] > D[i][k] + D[k][j]){
+                    D[i][j] = D[i][k] + D[k][j];
+                    P[i][j] = k;
+                }
+            }
+        }
+    }
+    console.log("P=>",P);
+    return D;
 }
 MatrixGraph.prototype.dfs = function(i){
     console.log("深度优先搜索");
