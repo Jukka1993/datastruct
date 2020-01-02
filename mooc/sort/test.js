@@ -2,10 +2,12 @@ var arr = require("../../2Kints");
 var bubbleSort = require("./bubbleSort");
 var insertionSort = require("./insertionSort");
 var quickSort = require("./quickSort");
-console.log(arr);
-console.log("*************$$$$");
-insertionSort(arr.arr);
-console.log(arr);
+var shellSort = require("./shellSort");
+var selectSort = require("./selectSort");
+var heapSort = require("./heapSort");
+// arr.arr = [2,3,1,5,4,7,8,13,12,6,15,9];
+
+quickSort(arr.arr);
 var isSorted = true;
 var isIncrease = true;
 if(arr.arr[0]< arr.arr[arr.arr.length-1]){
@@ -20,4 +22,5 @@ for(var i = 0;i<arr.arr.length-1;i++){
         break;
     }
 }
+console.log(arr.arr);
 console.log("isSorted = ",isSorted,"  isIncrease=",isIncrease);

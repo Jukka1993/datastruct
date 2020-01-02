@@ -15,7 +15,9 @@ for(var i =0 ;i<nums.length-1;i++){
     }
 }
 // const newHeap = heap.createHeapLow([6,0,7,8,4,9,13,24,5,33,26,17,98,45,72,36,58,43,19]);
-const newHeap = heap.createHeapLow(nums);
+// const newHeap = heap.createHeapLow(nums);
+const newHeap = heap.createHeapHigh(nums);
+
 var temp1 = [];
 while(newHeap.size > 0){
     temp1.push(heap.get(newHeap));
