@@ -5,9 +5,10 @@ var quickSort = require("./quickSort");
 var shellSort = require("./shellSort");
 var selectSort = require("./selectSort");
 var heapSort = require("./heapSort");
+var mergeSort = require("./mergeSort");
 // arr.arr = [2,3,1,5,4,7,8,13,12,6,15,9];
 
-quickSort(arr.arr);
+mergeSort(arr.arr);
 var isSorted = true;
 var isIncrease = true;
 if(arr.arr[0]< arr.arr[arr.arr.length-1]){
